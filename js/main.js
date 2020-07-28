@@ -31,17 +31,80 @@ $(function () {
   //	});
 
   //初始化拓扑图
-  req.read(callback);
+  // req.read(callback);
 
-  //获取数据后的回调函数
-  function callback(res) {
-    n = res.info["n"];
-    e = res.info["e"];
-    data = res.info["data"];
-    ini();
-    drawTopology();
+  var currentTopology = {};
+
+  // min <=  < max
+  function ramdomNum(min, max) {
+    return min + Math.floor(Math.random() * (max - min));
   }
 
+  // 随机生成拓扑信息
+  function romTopology() {
+    n = ramdomNum(20, 30);
+    e = ramdomNum(1, Math.floor((n * (n - 1)) / 2));
+    var array = new Array(n);
+    for (var i = 0; i < array.length; i++) {
+      array[i] = new Array(n);
+      for (var j = 0; j < array[i].length; j++) {
+        array[i][j] = 0;
+      }
+    }
+    // for (var i = 0; i < n; i++) {
+    //   var count = 0;
+    //   for (var j = 0; j < n; j++) {
+    //     if (i == j) continue;
+    //     if (array[j][i] != 0) {
+    //       array[i][j] = array[j][i];
+    //     } else {
+    //       if (count < e) {
+    //         array[i][j] = ramdomNum(1, 100);
+    //         count++;
+    //       }
+    //     }
+    //   }
+    // }
+    for (var i = 0; i < e; ) {
+      var j = ramdomNum(0, n);
+      var k = ramdomNum(0, n);
+      if (j != k) {
+        if (array[j][k] == 0 && array[k][j] == 0) {
+          array[j][k] = array[k][j] = ramdomNum(0, 100);
+          i++;
+        }
+      }
+    }
+    console.log(array);
+    function adjacent(array) {
+      var adj = {};
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] != 0) {
+          adj["route" + i] = array[i];
+          //   adj = JSON.parse(JSON.stringify(adj).replace(/route/g, "route" + i));
+        }
+      }
+      return adj;
+    }
+    for (var i = 0; i < n; i++) {
+      currentTopology[i] = {};
+      currentTopology[i].name = "route" + i;
+      currentTopology[i].adjacent = adjacent(array[i]);
+    }
+  }
+  //获取数据后的回调函数
+  // function callback(res) {
+  //   // n = res.info["n"];
+  //   // e = res.info["e"];
+  //   // data = res.info["data"];
+  //   // ini();
+  //   // drawTopology();
+  // }
+  romTopology();
+  data = currentTopology;
+  console.log(data);
+  ini();
+  drawTopology();
   //绘制整个拓扑图
   function drawTopology() {
     for (var i = 0; i < n; i++) {
