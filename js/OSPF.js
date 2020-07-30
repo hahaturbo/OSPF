@@ -5,14 +5,15 @@ $(function () {
   // JTopo 创建舞台和场景对象
   var stage = new JTopo.Stage(canvas);
   var scene = new JTopo.Scene(stage);
-
+  //背景图片
+  scene.background = "./img/bg.jpg";
   var currentNode = null;
   var currentLink = null;
   // 点集以及边集
   var routerNodes = [];
   var links = [];
 
-  var currentTopology = {};
+  // var currentTopology = {};
 
   // min <=  < max
   function ramdomNum(min, max) {
@@ -44,6 +45,7 @@ $(function () {
     //     }
     //   }
     // }
+    console.time();
     for (var i = 0; i < e; ) {
       var j = ramdomNum(0, n);
       var k = ramdomNum(0, n);
@@ -54,6 +56,7 @@ $(function () {
         }
       }
     }
+    console.timeEnd()
     function adjacent(array) {
       var adj = {};
       for (var i = 0; i < array.length; i++) {
@@ -73,17 +76,31 @@ $(function () {
 
   // 画拓扑结构
   function drawTopology() {
-      var x = Math.ceil(Math.sqrt(n));
-      var y = Math.floor(n / x);
+    var x = Math.ceil(Math.sqrt(n));
+    var y = Math.ceil(n / x);
+    console.log(n, x, y);
     for (var i = 0; i < n; i++) {
-      x = (window.innerWidth / x) * i;
-      y = (window.innerHeight / y) * i;
-		var router = newRouter(currentTopology[i].name, x, y);
-		router.addEventListener("mouseup", function (event) {
-			currentNode = this;
-			routerMeunShow(event);
-		});
-		routerNodes.push(router);
+      var X = 30 + (window.innerWidth / x) * (i % x);
+      var Y = 30 + (window.innerHeight / y) * Math.floor(i / x);
+      var router = newRouter(currentTopology[i].name, X, Y);
+      router.addEventListener("mouseup", function (event) {
+        currentNode = this;
+        routerMeunShow(event);
+      });
+      routerNodes.push(router);
+    }
+    for (var i = 0; i < n; i++) {
+      for (var j = i + 1; j < n; j++) {
+        var cost = currentTopology[i].adjacent[currentTopology[j].name];
+        if (cost) {
+          var link = newLink(routerNodes[i], routerNodes[j], cost);
+          link.addEventListener("mouseup", function (event) {
+            currentLink = this;
+            edgeMeunShow(event);
+          });
+          links.push(link);
+        }
+      }
     }
   }
 
@@ -97,20 +114,66 @@ $(function () {
     node.showSelected = false; // 不显示选中矩形
     scene.add(node);
     return node;
-	}
-	//路由器右键菜单
-	function routerMeunShow(event) {
-		if (event.button == 2) {
-		  // 右键
-		  // 当前位置弹出菜单（div）
-		  $(".routerMeun")
-			.css({
-			  top: event.pageY,
-			  left: event.pageX,
-			})
-			.show();
-		
+  }
+  //连线
+  function newLink(nodeA, nodeZ, text) {
+    var link = new JTopo.Link(nodeA, nodeZ, text);
+    link.lineWidth = 5; // 线宽
+    link.font = "20px SimHei";
+    scene.add(link);
+    return link;
+  }
+  //路由器右键菜单
+  function routerMeunShow(event) {
+    if (event.button == 2) {
+      // 右键
+      $(".edgeMeun").hide();
+      // 当前位置弹出菜单（div）
+      $(".routerMeun")
+        .css({
+          top: event.pageY,
+          left: event.pageX,
+        })
+        .show();
+    }
+  }
+  //边右键菜单
+  function edgeMeunShow(event) {
+    if (event.button == 2) {
+      // 右键
+      $(".routerMeun").hide();
+      // 当前位置弹出菜单（div）
+      $(".edgeMeun")
+        .css({
+          top: event.pageY,
+          left: event.pageX,
+        })
+        .show();
+    }
+  }
+  $(".contextmenu a").click(function (event) {
+    var text = $(this).text();
+    switch (text) {
+      case "连接":
+        console.log("连接");
+        break;
+      case "查看路由表":
+        console.log("查看路由表");
+        break;
+      case "删除该路由":
+        console.log("删除该路由");
+        break;
+      case "修改代价":
+        console.log("修改代价");
+        break;
+      case "删除该连接":
+        console.log("删除该连接");
+        break;
+    }
+    $(".contextmenu").hide();
+  });
   // 主体
+  romTopology();
   ini();
   drawTopology();
 });

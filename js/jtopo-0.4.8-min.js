@@ -888,7 +888,7 @@
           a.addTo(this), this.childs.push(a);
         }),
         (this.remove = function (a) {
-          if (null == a) throw new Error("Stage.remove出错: 参数为null!");
+          if (null == a) throw new Error("Stage.removeå‡ºé”™: å‚æ•°ä¸ºnull!");
           for (var b = 0; b < this.childs.length; b++)
             if (this.childs[b] === a)
               return (a.stage = null), (this.childs = this.childs.del(b)), this;
@@ -2108,9 +2108,9 @@
           if (null != this.alarm && "" != this.alarm) {
             var b = this.alarmColor || "255,0,0",
               c = this.alarmAlpha || 0.5;
-            a.beginPath(), (a.font = this.alarmFont || "10px 微软雅黑");
+            a.beginPath(), (a.font = this.alarmFont || "10px å¾®è½¯é›…é»‘");
             var d = a.measureText(this.alarm).width + 6,
-              e = a.measureText("田").width + 6,
+              e = a.measureText("ç”°").width + 6,
               f = this.width / 2 - d / 2,
               g = -this.height / 2 - e - 8;
             (a.strokeStyle = "rgba(" + b + ", " + c + ")"),
@@ -2142,7 +2142,7 @@
           if (null != b && "" != b) {
             a.beginPath(), (a.font = this.font);
             var c = a.measureText(b).width,
-              d = a.measureText("田").width;
+              d = a.measureText("ç”°").width;
             a.fillStyle = "rgba(" + this.fontColor + ", " + this.alpha + ")";
             var e = this.getTextPostion(this.textPosition, c, d);
             a.fillText(b, e.x, e.y), a.closePath();
@@ -2206,7 +2206,8 @@
           );
         }),
         (this.setImage = function (b, c) {
-          if (null == b) throw new Error("Node.setImage(): 参数Image对象为空!");
+          if (null == b)
+            throw new Error("Node.setImage(): å‚æ•°Imageå¯¹è±¡ä¸ºç©º!");
           var d = this;
           if ("string" == typeof b) {
             var e = j[b];
@@ -2246,7 +2247,7 @@
           a.beginPath(),
             (a.font = this.font),
             (this.width = a.measureText(this.text).width),
-            (this.height = a.measureText("田").width),
+            (this.height = a.measureText("ç”°").width),
             (a.strokeStyle =
               "rgba(" + this.fontColor + ", " + this.alpha + ")"),
             (a.fillStyle = "rgba(" + this.fontColor + ", " + this.alpha + ")"),
@@ -2269,7 +2270,7 @@
           a.beginPath(),
             (a.font = this.font),
             (this.width = a.measureText(this.text).width),
-            (this.height = a.measureText("田").width),
+            (this.height = a.measureText("ç”°").width),
             this.isVisited && null != this.visitedColor
               ? ((a.strokeStyle =
                   "rgba(" + this.visitedColor + ", " + this.alpha + ")"),
@@ -2690,7 +2691,7 @@
             f = (d.y + c.y) / 2 + this.textOffsetY;
           a.save(), a.beginPath(), (a.font = this.font);
           var g = a.measureText(this.text).width,
-            h = a.measureText("田").width;
+            h = a.measureText("ç”°").width;
           if (
             ((a.fillStyle = "rgba(" + this.fontColor + ", " + this.alpha + ")"),
             this.nodeA === this.nodeZ)
@@ -2791,7 +2792,7 @@
               e = c.y + this.textOffsetY;
             a.save(), a.beginPath(), (a.font = this.font);
             var f = a.measureText(this.text).width,
-              g = a.measureText("田").width;
+              g = a.measureText("ç”°").width;
             (a.fillStyle = "rgba(" + this.fontColor + ", " + this.alpha + ")"),
               a.fillText(this.text, d - f / 2, e - g / 2),
               a.stroke(),
@@ -3001,7 +3002,7 @@
           if (null != b && "" != b) {
             a.beginPath(), (a.font = this.font);
             var c = a.measureText(b).width,
-              d = a.measureText("田").width;
+              d = a.measureText("ç”°").width;
             a.fillStyle = "rgba(" + this.fontColor + ", " + this.alpha + ")";
             var e = this.getTextPostion(this.textPosition, c, d);
             a.fillText(b, e.x, e.y), a.closePath();
@@ -3517,7 +3518,7 @@
             var h =
                 this.titles[f] + ": " + (100 * this.datas[f]).toFixed(2) + "%",
               i = a.measureText(h).width,
-              j = (a.measureText("田").width, (e + e + g) / 2),
+              j = (a.measureText("ç”°").width, (e + e + g) / 2),
               k = this.radius * Math.cos(j),
               l = this.radius * Math.sin(j);
             j > Math.PI / 2 && j <= Math.PI
@@ -3569,7 +3570,7 @@
             a.fillRect(g, h, d, f);
             var i = "" + parseInt(this.datas[e]),
               j = a.measureText(i).width,
-              k = a.measureText("田").width;
+              k = a.measureText("ç”°").width;
             (a.fillStyle = "#FFFFFF"),
               a.fillText(i, g + (d - j) / 2, h - k),
               a.fillText(this.titles[e], g + (d - j) / 2, this.height / 2 + k),

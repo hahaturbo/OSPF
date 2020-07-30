@@ -1,6 +1,6 @@
 var n, //顶点数
   e, //边数
-  data, //存放初始数据
+  currentTopology = {}, //存放初始数据
   routers = []; //路由表集合
 
 //路由表
@@ -26,7 +26,7 @@ function RouterTable(name, information) {
 function ini() {
   //		n = res.info['n'];
   //		e = res.info['e'];
-  //		data = res.info['data'];
+  //		currentTopology = res.info['currentTopology'];
   //建立拓扑图
   buildTopology();
 }
@@ -38,21 +38,21 @@ function buildTopology() {
     var information = {};
     for (var j = 0; j < n; j++) {
       if (i != j) {
-        var cost = data[i].adjacent[data[j].name];
+        var cost = currentTopology[i].adjacent[currentTopology[j].name];
         if (cost) {
-          information[data[j].name] = {
+          information[currentTopology[j].name] = {
             cost: cost,
-            path: [data[i].name, data[j].name],
+            path: [currentTopology[i].name, currentTopology[j].name],
           };
         } else {
-          information[data[j].name] = {
+          information[currentTopology[j].name] = {
             cost: Number.POSITIVE_INFINITY,
-            path: [data[i].name, data[j].name],
+            path: [currentTopology[i].name, currentTopology[j].name],
           };
         }
       }
     }
-    var routerTable = new RouterTable(data[i].name, information);
+    var routerTable = new RouterTable(currentTopology[i].name, information);
     routers.push(routerTable);
   }
 
@@ -240,15 +240,15 @@ flooding.update = function () {
     //把自己的链路状态放入链路状态数据库中
     routers[i].linkStateDatabase.push({
       name: oriName,
-      linkState: data[i].adjacent,
+      linkState: currentTopology[i].adjacent,
     });
     //遍历当前路由器的相邻路由器
-    for (var key in data[i].adjacent) {
-      if (data[i].adjacent.hasOwnProperty(key) === true) {
+    for (var key in currentTopology[i].adjacent) {
+      if (currentTopology[i].adjacent.hasOwnProperty(key) === true) {
         var index = getIndex(key);
         //如果将要传递的链路状态在目标信息中不存在
         if (!flooding.isExist(index, oriName)) {
-          routers[i].send(routers[index], data[i].adjacent);
+          routers[i].send(routers[index], currentTopology[i].adjacent);
         }
       }
     }

@@ -42,7 +42,7 @@ $(function () {
 
   // 随机生成拓扑信息
   function romTopology() {
-    n = ramdomNum(20, 30);
+    n = ramdomNum(5, 15);
     e = ramdomNum(1, Math.floor((n * (n - 1)) / 2));
     var array = new Array(n);
     for (var i = 0; i < array.length; i++) {
@@ -145,7 +145,7 @@ $(function () {
     var node = new JTopo.Node(name);
     node.setImage("img/router.png");
     node.setLocation(X, Y);
-    node.setSize(100, 100);
+    node.setSize(50, 50);
     node.font = "20px Arial";
     node.showSelected = false; // 不显示选中矩形
     scene.add(node);
