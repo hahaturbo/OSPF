@@ -96,13 +96,12 @@ $(function () {
   // function callback(res) {
   //   // n = res.info["n"];
   //   // e = res.info["e"];
-  //   // data = res.info["data"];
+  //   // currentTopology = res.info["currentTopology"];
   //   // ini();
   //   // drawTopology();
   // }
   romTopology();
-  data = currentTopology;
-  console.log(data);
+  console.log(currentTopology);
   ini();
   drawTopology();
   //绘制整个拓扑图
@@ -116,7 +115,7 @@ $(function () {
         var X = 50 + i * 200;
         var Y = 30;
       }
-      var router = new newRouter(data[i].name, X, Y);
+      var router = new newRouter(currentTopology[i].name, X, Y);
       router.addEventListener("mouseup", function (event) {
         currentNode = this;
         routerMeunShow(event);
@@ -126,7 +125,7 @@ $(function () {
     for (var i = 0; i < n; i++) {
       for (var j = i; j < n; j++) {
         if (i != j) {
-          var cost = data[i].adjacent[data[j].name];
+          var cost = currentTopology[i].adjacent[currentTopology[j].name];
           if (cost) {
             var link = new newLink(routerNodes[i], routerNodes[j], cost);
             link.addEventListener("mouseup", function (event) {
@@ -172,13 +171,13 @@ $(function () {
     if (text == "删除该路由") {
       scene.remove(currentNode);
       for (var i = 0; i < n; i++) {
-        if (data[i].name == currentNode.text) {
-          data.splice(i, 1);
+        if (currentTopology[i].name == currentNode.text) {
+          currentTopology.splice(i, 1);
           n--;
           i--;
         } else {
-          if (data[i].adjacent[currentNode.text]) {
-            delete data[i].adjacent[currentNode.text];
+          if (currentTopology[i].adjacent[currentNode.text]) {
+            delete currentTopology[i].adjacent[currentNode.text];
           }
         }
       }
@@ -208,10 +207,10 @@ $(function () {
           i--;
         }
       }
-      delete data[getIndex(currentLink.nodeA.text)].adjacent[
+      delete currentTopology[getIndex(currentLink.nodeA.text)].adjacent[
         currentLink.nodeZ.text
       ];
-      delete data[getIndex(currentLink.nodeZ.text)].adjacent[
+      delete currentTopology[getIndex(currentLink.nodeZ.text)].adjacent[
         currentLink.nodeA.text
       ];
       buildTopology();
@@ -307,8 +306,8 @@ $(function () {
               currentLink = this;
               edgeMeunShow(event);
             });
-            data[getIndex(beginNode.text)].adjacent[endNode.text] = 0;
-            data[getIndex(endNode.text)].adjacent[beginNode.text] = 0;
+            currentTopology[getIndex(beginNode.text)].adjacent[endNode.text] = 0;
+            currentTopology[getIndex(endNode.text)].adjacent[beginNode.text] = 0;
             e++;
             buildTopology();
             $(".cost").val("");
@@ -415,10 +414,10 @@ $(function () {
   $(".cost_enter").click(function () {
     var cost = $(".cost").val();
     if (!isNaN(cost) && cost.length != 0) {
-      data[getIndex(currentLink.nodeA.text)].adjacent[
+      currentTopology[getIndex(currentLink.nodeA.text)].adjacent[
         currentLink.nodeZ.text
       ] = cost;
-      data[getIndex(currentLink.nodeZ.text)].adjacent[
+      currentTopology[getIndex(currentLink.nodeZ.text)].adjacent[
         currentLink.nodeA.text
       ] = cost;
       buildTopology();
@@ -448,7 +447,7 @@ $(function () {
       currentNode = this;
       routerMeunShow(event);
     });
-    data.push({ name: name, adjacent: {} });
+    currentTopology.push({ name: name, adjacent: {} });
     n++;
     buildTopology();
     routerNodes.push(router);
@@ -468,6 +467,6 @@ $(function () {
     scene.clear();
     routerNodes.splice(0, routerNodes.length);
     links.splice(0, links.length);
-    data.splice(0, data.length);
+    currentTopology.splice(0, currentTopology.length);
   });
 });

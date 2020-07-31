@@ -1,6 +1,6 @@
 var n, //顶点数
   e, //边数
-  currentTopology = {}, //存放初始数据
+  currentTopology = [], //存放初始数据
   routers = []; //路由表集合
 
 //路由表
