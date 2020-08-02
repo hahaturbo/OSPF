@@ -27,12 +27,64 @@
 .contextmenu li a:hover {
   background: #fff;
 }
+.introduction {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 999;
+}
+.introduction .title {
+  text-align: center;
+  justify-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  /* background-color: gray; */
+  border-bottom: 1px dashed;
+  padding: 20px 0;
+}
 
+.introduction .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.introduction .icon {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  flex: 2;
+}
+.introduction .icon img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  -webkit-transform: translate(-50%, -50%) scale(2);
+  -ms-transform: translate(-50%, -50%) scale(2);
+  -o-transform: translate(-50%, -50%) scale(2);
+}
+.introduction .text {
+  flex: 3;
+  text-align: left;
+}
+.introduction .modebuttons {
+  padding: 30px 0;
+}
 .routerTable {
   position: absolute;
   left: 500px;
   top: 200px;
   text-align: center;
+  height: 50%;
   background-color: #fff;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -63,11 +115,21 @@
   margin-right: 10px;
   margin-top: 3px;
 }
+.routerTable .Table {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-color: transparent;
+  text-align: center;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 94%;
+}
 .routerTable .table {
+  height: 100%;
   text-align: center;
   z-index: 100;
 }
-
 input {
   background: none;
   border: none;
@@ -279,12 +341,17 @@ a.Button {
 
 .Blue.Button {
   -webkit-animation-name: bluePulse;
-  -webkit-animation-duration: 4s;
+  -webkit-animation-duration: 3s;
 }
 
 .Red.Button {
   -webkit-animation-name: redPulse;
-  -webkit-animation-duration: 1s;
+  -webkit-animation-duration: 3s;
+}
+
+.orange.Button {
+  -webkit-animation-name: orangePulse;
+  -webkit-animation-duration: 3s;
 }
 
 .magenta.button {

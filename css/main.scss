@@ -282,11 +282,15 @@ a.Button {
 }
 .Blue.Button {
   -webkit-animation-name: bluePulse;
-  -webkit-animation-duration: 4s;
+  -webkit-animation-duration: 3s;
 }
 .Red.Button {
   -webkit-animation-name: redPulse;
-  -webkit-animation-duration: 1s;
+  -webkit-animation-duration: 3s;
+}
+.orange.Button {
+  -webkit-animation-name: orangePulse;
+  -webkit-animation-duration: 3s;
 }
 .magenta.button {
   -webkit-animation-name: magentaPulse;

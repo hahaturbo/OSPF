@@ -9,8 +9,30 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<link rel="SHORTCUT ICON" href="favicon.ico"/>
 	<body>
-		<canvas id="canvas" width="300" height="150"></canvas>
+		<!-- 作品介绍 -->
+		<div class="introduction">
+			<div class="title">作品介绍</div>
+			<div class="content">
+				<div class="icon">
+					<image src="Network topology.png">				</image>
+				</div>
+				<div class="text">
+					<h2>
+						<p>链路状态路由算法的实现</p>
+					</h2>
+					<p>版本：2.1.0</p>
+					<p>作者：周厚溧</p>
+					<p>班级：2018级计算机科学与技术3班</p>
+					<p>简介：基于html+css+javaScript实现，主要运用到开源的Jtopo实现网络拓扑结构实现，涵盖知识包括OSPF、开放最短路径最短，Dijkstra算法在OSPF的运用等。</p>
+				</div>
+			</div>
+			<div class="modebuttons">
+				<div class="large Red Button mode1">读取文件</div>
+				<div class="large Red Button mode2">随机生成</div>
+			</div>
+		</div>
 		
+		<canvas id="canvas" width="300" height="150"></canvas>
 		<!--右键菜单-->
 		 <ul class="contextmenu routerMeun" style="display:none;">	
 			<li><a>连接</a></li>
@@ -26,10 +48,12 @@
 		<!--显示路由表-->
 		<div class="routerTable hide" onselectstart="return false">
 			<div><span>路由表</span><img src="img/cancel.png" class="cancel"></img></div>
+			<div class="Table"></div>
 		</div>
 		
 		<!--功能按钮-->
 		<div class="buttons">
+			<a class="large orange Button save" onselectstart="return false">保存</a>
 			<a class="large Blue Button newRouter" onselectstart="return false">新建路由器</a>
 			<a class="large Red Button refresh" onselectstart="return false">刷新</a>
 			<a class="large Green Button clear" onselectstart="return false">清空</a>

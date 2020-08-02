@@ -12,3 +12,14 @@ req.read = function (callback) {
     },
   });
 };
+req.write = function (saveTopology) {
+  $.post({
+    type: "POST",
+    url: "js/data.json",
+    data: saveTopology,
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+  })
+};
