@@ -47,9 +47,9 @@ $(function () {
   // 随机生成拓扑信息
   function romTopology() {
     n = ramdomNum(50, 100)
-    e = ramdomNum(1, Math.floor((n * (n - 1)) / 2))
+    // e = ramdomNum(1, Math.floor((n * (n - 1)) / 2))
     // n = ramdomNum(20, 25);
-    // e = ramdomNum(1, 50);
+    e = ramdomNum(n - 1, 5 * n)
     var array = new Array(n)
     for (var i = 0; i < array.length; i++) {
       array[i] = new Array(n)
@@ -468,20 +468,23 @@ $(function () {
     $(".introduction").hide()
   })
   $(".save").click(function () {
-    console.log("save");
+    console.log("save")
     var save = {},
       info = {}
     info.n = n
     info.e = e
     info.data = currentTopology
-    save.info = info;
-    console.log(JSON.stringify(save));
-    var elementA = document.createElement("a");
-    elementA.setAttribute("href", 'data:text/plain;charset=utf-8,' + JSON.stringify(save));
-    elementA.setAttribute("download", "data" + ".json");
-    elementA.style.display = "none";
-    document.body.appendChild(elementA);
-    elementA.click();
-    document.body.removeChild(elementA);
+    save.info = info
+    console.log(JSON.stringify(save))
+    var elementA = document.createElement("a")
+    elementA.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + JSON.stringify(save)
+    )
+    elementA.setAttribute("download", "data" + ".json")
+    elementA.style.display = "none"
+    document.body.appendChild(elementA)
+    elementA.click()
+    document.body.removeChild(elementA)
   })
 })
