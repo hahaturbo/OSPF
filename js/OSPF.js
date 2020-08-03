@@ -97,6 +97,7 @@ $(function () {
 
   // 画拓扑结构
   function drawTopology() {
+    scene.clear()
     var x = Math.ceil(Math.sqrt(n))
     var y = Math.ceil(n / x)
     for (var i = 0; i < n; i++) {
@@ -345,15 +346,11 @@ $(function () {
     if (name.length == 0) {
       return
     }
-    var router = newRouter(name, window.innerWidth / 2, window.innerHeight / 2)
-    router.addEventListener("mouseup", function (event) {
-      currentNode = this
-      routerMeunShow(event)
-    })
     currentTopology.push({ name: name, adjacent: {} })
     n++
+    console.log(currentTopology)
     buildTopology()
-    routerNodes.push(router)
+    drawTopology()
     $(".inputRouter").hide()
   })
   //左键隐藏菜单
@@ -448,6 +445,7 @@ $(function () {
     routerNodes.splice(0, routerNodes.length)
     links.splice(0, links.length)
     currentTopology.splice(0, currentTopology.length)
+    n = e = 0
   })
 
   // 主体
